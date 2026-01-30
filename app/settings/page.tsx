@@ -15,9 +15,13 @@ import {
   FileText,
   Lock,
   Clock,
+  Languages,
+  Moon,
+  ChevronDown,
 } from "lucide-react";
 import SettingsSection from "@/components/SettingsSection";
 import SettingsItem from "@/components/SettingsItem";
+import PreferencesRow from "@/components/PreferencesRow";
 
 export default function SettingsPage() {
   // Mock state for settings
@@ -31,13 +35,15 @@ export default function SettingsPage() {
     transactionSigning: true,
   });
 
+  const [currency, setCurrency] = useState("USD");
+
   const stellarAddress = "GCF2...7P3Q";
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="w-full min-h-screen bg-[#0F0F0F] md:px-[171.5px] px-[16px] font-inter">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center">
+        <div className="w-full px-4 py-4 flex items-center">
           <Link
             href="/dashboard"
             className="p-2 -ml-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
@@ -48,7 +54,7 @@ export default function SettingsPage() {
         </div>
       </header>
 
-      <div className="max-w-3xl mx-auto py-6">
+      <div className="w-full py-6">
         {/* Account Section */}
         <SettingsSection title="Account">
           <SettingsItem
@@ -106,22 +112,103 @@ export default function SettingsPage() {
         </SettingsSection>
 
         {/* Preferences Section */}
-        <SettingsSection title="Preferences">
-          <SettingsItem
-            icon={<Globe className="w-5 h-5" />}
-            title="Currency Display"
-            description="Primary currency for dashboard"
-            type="text"
-            value="USD ($)"
-          />
-          <SettingsItem
-            icon={<MessageSquare className="w-5 h-5" />}
-            title="Language"
-            description="Default app language"
-            type="text"
-            value="English"
-          />
-        </SettingsSection>
+        {/* Preferences Section - Custom Dark Theme Implementation */}
+        <div className="bg-black p-6 mb-8">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-10 w-10 flex items-center justify-center bg-[#DC262633] rounded-xl">
+              <Globe className="w-5 h-5 text-[#DC2626]" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-white">Preferences</h2>
+              <p className="text-sm text-gray-400">Customize your experience</p>
+            </div>
+          </div>
+
+          <div className="bg-[#0F0F0F] border border-[#FFFFFF14] rounded-3xl overflow-hidden">
+            {/* Currency Row */}
+            <PreferencesRow
+              icon={<span className="text-xl">$</span>}
+              title="Currency Display"
+              subtitle="Default currency for amounts"
+              rightContent={
+                <div className="relative">
+                  <select
+                    className="w-full bg-[#FFFFFF0D] text-white text-sm rounded-lg px-4 py-2 pr-8 appearance-none border border-zinc-800 focus:outline-none focus:border-[#FF4500]"
+                    value={currency}
+                    onChange={(e) => setCurrency(e.target.value)}
+                  >
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                  </select>
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
+                    <ChevronDown className="w-5 h-5 text-gray-300" />
+                  </div>
+                </div>
+              }
+            />
+
+            {/* Language Row */}
+            <PreferencesRow
+              icon={<Languages className="w-5 h-5" />}
+              title={
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-white text-[14px] md:text-[16px]">Language</span>
+                  <span className="px-2 py-0.5 text-[10px] font-bold text-[#DC2626] border border-[#DC262633] bg-[#DC26261A] rounded-full uppercase tracking-wider">
+                    Coming Soon
+                  </span>
+                </div>
+              }
+              subtitle="App display language"
+              rightContent={
+                <div className="relative w-full">
+                  <select
+                    className="w-full bg-[#FFFFFF0D] text-gray-500 text-sm rounded-lg px-4 py-2 pr-8 appearance-none border border-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                    defaultValue="English"
+                  >
+                    <option>English</option>
+                    <option>Spanish</option>
+                    <option>French</option>
+                  </select>
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
+                    <ChevronDown className="w-5 h-5 text-gray-300" />
+                  </div>
+                </div>
+              }
+            />
+
+            {/* Theme Row */}
+            <PreferencesRow
+              icon={<Moon className="w-5 h-5" />}
+              title={
+                <div className="flex items-center justify-between w-full">
+                  <span>Theme</span>
+                  <span className="px-2 py-0.5 text-[10px] font-bold text-[#DC2626] border border-[#DC262633] bg-[#DC26261A] rounded-full uppercase tracking-wider">
+                    Coming Soon
+                  </span>
+                </div>
+              }
+              subtitle="Visual appearance"
+              rightContent={
+                <div className="relative w-full">
+                  <select
+                    className="w-full bg-[#FFFFFF0D] text-gray-500 text-sm rounded-lg px-4 py-2 pr-8 appearance-none border border-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                    defaultValue="Dark"
+                  >
+                    <option>Dark</option>
+                    <option>Light</option>
+                    <option>System</option>
+                  </select>
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
+                    <ChevronDown className="w-5 h-5 text-gray-300" />
+                  </div>
+                </div>
+              }
+            />
+          </div>
+        </div>
 
         {/* Security Section */}
         <SettingsSection title="Security">
