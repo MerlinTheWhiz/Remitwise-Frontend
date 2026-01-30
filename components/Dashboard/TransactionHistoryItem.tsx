@@ -88,7 +88,7 @@ export default function TransactionHistoryItem({ transaction }: { transaction: T
     const formattedAmount = `${isNegative ? '-' : '+'}${Math.abs(transaction.amount).toFixed(2)} ${transaction.currency}`;
 
     return (
-        <div className="border border-[#FFFFFF14] bg-gradient-to-b from-[#0F0F0F] to-[#0A0A0A] rounded-2xl p-6 mb-4 hover:border-[#333] transition-colors">
+        <div className="border border-[#FFFFFF14] bg-gradient-to-t from-[#0F0F0F] to-[#0A0A0A] rounded-2xl p-6 mb-4 hover:border-[#333] transition-colors">
             <div className='flex gap-4'>
                 <div className="w-12 h-12 bg-[#1A0505] rounded-xl flex items-center justify-center border border-[#2A1515] flex-shrink-0 text-[#FF4B26] mr-2">
                     {getIcon(transaction.type)}

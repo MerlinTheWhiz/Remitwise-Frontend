@@ -1,6 +1,8 @@
 
 "use client";
 
+import { useState } from "react";
+
 import Link from "next/link";
 import {
     ArrowLeft,
@@ -128,6 +130,18 @@ const allTransactions: Transaction[] = [
 export default function TransactionsPage() {
     const router = useRouter();
 
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const filteredTransactions = allTransactions.filter(transaction => {
+        const query = searchQuery.toLowerCase();
+        return (
+            transaction.id.toLowerCase().includes(query) ||
+            transaction.counterpartyName.toLowerCase().includes(query) ||
+            transaction.type.toLowerCase().includes(query) ||
+            transaction.amount.toString().includes(query)
+        );
+    });
+
     function handleBack() {
         if (typeof window !== "undefined" && window.history.length > 1) {
             // Prefer native history to ensure it works in all environments
@@ -154,7 +168,7 @@ export default function TransactionsPage() {
                             </button>
                             <div>
                                 <h1 className="text-2xl font-bold text-white">Transaction History</h1>
-                                <p className="text-sm text-gray-500">{allTransactions.length} transactions found</p>
+                                <p className="text-sm text-gray-500">{filteredTransactions.length} transactions found</p>
                             </div>
                         </div>
 
@@ -171,7 +185,7 @@ export default function TransactionsPage() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Filter Bar Container */}
-                <div className="bg-[#141414] border border-[#FFFFFF14] bg-gradient-to-b from-[#0F0F0F] to-[#0A0A0A] rounded-2xl p-4 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div className="bg-[#141414] border border-[#FFFFFF14] bg-gradient-to-t from-[#0F0F0F] to-[#0A0A0A] rounded-2xl p-4 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
                     {/* Search Input */}
                     <div className="relative w-full">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -179,6 +193,8 @@ export default function TransactionsPage() {
                         </div>
                         <input
                             type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
                             className="block w-full pl-10 pr-3 py-2.5 border border-[#FFFFFF14] rounded-xl leading-5 bg-[#FFFFFF0D] text-gray-300 placeholder-gray-500 focus:outline-none focus:bg-[#1A1A1A] focus:border-[#FF4B26] focus:ring-1 focus:ring-[#FF4B26] sm:text-sm transition-colors"
                             placeholder="Search by ID, recipient, or transaction hash..."
                         />
@@ -199,9 +215,15 @@ export default function TransactionsPage() {
 
                 {/* Transactions List */}
                 <div className="space-y-2.5">
-                    {allTransactions.map((transaction) => (
-                        <TransactionHistoryItem key={transaction.id} transaction={transaction} />
-                    ))}
+                    {filteredTransactions.length > 0 ? (
+                        filteredTransactions.map((transaction) => (
+                            <TransactionHistoryItem key={transaction.id} transaction={transaction} />
+                        ))
+                    ) : (
+                        <div className="text-center py-12 text-gray-500">
+                            No transactions found matching "{searchQuery}"
+                        </div>
+                    )}
                 </div>
             </div>
         </main>
