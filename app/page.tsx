@@ -16,6 +16,8 @@ import WalletDropdown from "@/components/WalletDropdown";
 import WhyChooseStellar from "@/components/WhyChooseStellar";
 import Hero from "@/components/Hero";
 import ValueProposition from "@/components/ValueProposition";
+import StatsSection from "@/components/StatsSection";
+
 
 export default function Home() {
   const [isWalletDropdownOpen, setIsWalletDropdownOpen] = useState(false);
@@ -25,7 +27,7 @@ export default function Home() {
     <main className="min-h-screen bg-brand-dark from-blue-50 to-indigo-100">
       {/* Hero Section */}
       <Hero/>
-
+<StatsSection />
       {/* Value Proposition Section */}
       <ValueProposition />
         
