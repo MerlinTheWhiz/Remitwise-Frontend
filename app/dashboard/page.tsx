@@ -14,6 +14,8 @@ import CurrentMoneySplitWidget from '@/components/CurrentMoneySplitWidget'
 import GoalProgress from "@/components/Dashboard/GoalProgress";
 import SplitBar from "@/components/Dashboard/SplitBar";
 import StatCard from "@/components/Dashboard/StatCard";
+import TransactionItem from "@/components/Dashboard/TransactionItem";
+import SavingsByGoalWidget from "@/components/Dashboard/SavingsByGoalWidget";
 import TransactionHistoryItem, { Transaction } from "@/components/Dashboard/TransactionHistoryItem";
 
 const recentTransactions: Transaction[] = [
@@ -217,39 +219,7 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Savings Goals Progress */}
-          <div
-            className="rounded-2xl shadow-md p-6 border border-[#FFFFFF14] hover:border-white/30 transition-colors duration-300"
-            style={{ backgroundImage: "var(--card)" }}
-          >
-            <div className="flex items-center gap-2 mb-4">
-              <span>
-                <PiggyBank className="w-6 h-6 text-[var(--accent)]" />
-              </span>
-              <h2 className="text-xl font-bold text-(--foreground)">
-                Savings by Goals
-              </h2>
-            </div>
-            <div className="space-y-4">
-              <GoalProgress
-                name="Emergency Fund"
-                current={331.2}
-                target={720}
-                gradient={{ from: "#B91C1C", to: "#991B1B" }}
-              />
-              <GoalProgress
-                name="Education Fund"
-                current={194}
-                target={550}
-                gradient={{ from: "#991B1B", to: "#7F1D1D" }}
-              />
-              <GoalProgress
-                name="Medical Fund"
-                current={58.9}
-                target={310}
-                gradient={{ from: "#7F1D1D", to: "#5F1515" }}
-              />
-            </div>
-          </div>
+          <SavingsByGoalWidget />
 
           {/* Bills by Type */}
           <div
