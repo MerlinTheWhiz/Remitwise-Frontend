@@ -61,7 +61,7 @@
   - Implement getEmergencyEvents method for analytics queries
   - _Requirements: 2.1, 2.2_
 
-- [ ] 6. Implement notification service
+- [x] 6. Implement notification service
   - Create NotificationService class with notifyFamilyMembers method
   - Implement getNotificationRecipients method to fetch family members
   - Add notification payload construction with amount, timestamp, sender info
