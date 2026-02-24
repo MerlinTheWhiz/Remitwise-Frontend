@@ -239,6 +239,77 @@ Returns system status and connectivity:
 - Log contract interaction failures
 - Set alerts for authentication failures
 
+### Testing
+
+**Unit Tests**
+
+Test individual API route handlers and utility functions:
+
+```bash
+# Run unit tests
+npm test
+
+# Run with coverage
+npm run test:coverage
+
+# Watch mode
+npm run test:watch
+```
+
+Unit tests are located alongside source files with `.test.ts` extension.
+
+**Integration Tests**
+
+Test complete API flows including authentication and contract interactions:
+
+```bash
+# Run integration tests
+npm run test:integration
+
+# Test specific API route
+npm run test:integration -- auth
+```
+
+Integration tests are in the `__tests__/integration/` directory.
+
+**Testing Checklist:**
+- ✓ Authentication flow (nonce → sign → verify)
+- ✓ Contract interactions (all 5 contracts)
+- ✓ Error handling and validation
+- ✓ Rate limiting
+- ✓ Session management
+
+### API Documentation
+
+For detailed API specifications:
+
+- **OpenAPI Spec**: See `openapi.yaml` for complete API documentation
+- **Interactive Docs**: Run `npm run docs` to view Swagger UI at `http://localhost:3000/api-docs`
+- **Postman Collection**: Import `postman_collection.json` for testing
+
+**Quick API Reference:**
+
+```bash
+# Authentication
+POST /api/auth/nonce          # Get nonce for signing
+POST /api/auth/verify         # Verify signature and create session
+POST /api/auth/logout         # End session
+
+# Transactions
+GET  /api/transactions        # List user transactions
+GET  /api/transactions/:id    # Get transaction details
+
+# Contracts
+POST /api/contracts/split     # Initialize/update split configuration
+POST /api/contracts/goals     # Create/manage savings goals
+POST /api/contracts/bills     # Manage bill payments
+POST /api/contracts/insurance # Manage insurance policies
+POST /api/contracts/family    # Manage family wallet
+
+# System
+GET  /api/health              # Health check
+```
+
 ## Design Notes
 
 - All forms are currently disabled (placeholders)
