@@ -25,6 +25,11 @@ The frontend includes placeholder pages and components for:
 
 ## Getting Started
 
+### Environment Configuration
+The application requires connection to a Soroban RPC node.
+- **Testnet:** `https://soroban-testnet.stellar.org` (Passphrase: `Test SDF Network ; September 2015`)
+- **Mainnet:** `https://soroban-rpc.stellar.org` (Passphrase: `Public Global Stellar Network ; September 2015`)
+
 ### Prerequisites
 
 - Node.js 18+ 
